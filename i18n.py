@@ -2,6 +2,7 @@
 
 CHOICE_TEXT = {
     "en_us": {
+        "ok":                       "OK",
         "yes":                      "Yes",
         "no":                       "No",
         "cancel":                   "Cancel",
@@ -9,6 +10,7 @@ CHOICE_TEXT = {
         "ignore":                   "Ignore"
     },
     "zh_cn": {
+        "ok":                       "确认",
         "yes":                      "是",
         "no":                       "否",
         "cancel":                   "取消",
@@ -43,6 +45,19 @@ HOMEPG_TEXT = {
         "git-remote":               "远程仓库配置",
         "git-destroy":              "删除当前仓库",
         "exit":                     "退出"
+    }
+}
+
+MESSAGE_TEXT = {
+    "en_us": {
+        "error":                    "Error",
+        "function-not-exist":       "Function '%s' does not exist",
+        "function-wip":             "Function '%s' is working in progress"
+    },
+    "zh_cn": {
+        "error":                    "错误",
+        "function-not-exist":       "功能 '%s' 不存在",
+        "function-wip":             "功能 '%s' 正在制作"
     }
 }
 

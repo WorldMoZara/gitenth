@@ -12,8 +12,11 @@ import i18n, u_box
 
 LOCALE = "zh_cn"
 
-def give_error():
-    pass
+def give_error(errtype: str, *args):
+    box = u_box.uMsgBox(i18n.MESSAGE_TEXT[LOCALE]["error"],
+                        i18n.MESSAGE_TEXT[LOCALE][errtype] % args,
+                        i18n.CHOICE_TEXT[LOCALE]["ok"])
+    box.show()
 
 def git_init():
     pass
@@ -26,25 +29,29 @@ def g10_exit(*args, **kwargs):
 
 EXECSTACK = {
     "git-init": git_init,
-    "git-clone": git_clone,
-    "exit": g10_exit
+    "git-clone": git_clone
 }
 
 def main():
-    HOMEPG_LOCALE_TEXT = i18n.HOMEPG_TEXT[LOCALE]
-    homepage = u_box.uListBox("GiTenth", list(HOMEPG_LOCALE_TEXT.values()))
-    homepage.show()
-    h_result = homepage.result
-    INFUNC = False
-    for key, value in HOMEPG_LOCALE_TEXT.items():
-        if h_result == value:
-            INFUNC = True
-            EXECSTACK[key]()
-            break
-    else:
-        if not INFUNC:
-            give_error()
-    main()
+    while True:
+        HOMEPG_LOCALE_TEXT = i18n.HOMEPG_TEXT[LOCALE]
+        homepage = u_box.uListBox("GiTenth", list(HOMEPG_LOCALE_TEXT.values()))
+        homepage.show()
+        h_result = homepage.result
+        if h_result == HOMEPG_LOCALE_TEXT["exit"]:
+            exit()
+        INFUNC = False
+        for key, value in HOMEPG_LOCALE_TEXT.items():
+            if h_result == value:
+                INFUNC = True
+                try:
+                    EXECSTACK[key]()
+                except KeyError:
+                    give_error("function-wip", h_result)
+                break
+        else:
+            if not INFUNC:
+                give_error("function-not-exist", h_result)
 
 if __name__ == "__main__":
     # from optparse import OptionParser
